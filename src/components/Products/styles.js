@@ -7,6 +7,9 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      padding: '1rem 0'
+    },
     //the size of the padding is 1.5rem this case, and increments by 0.5rem as the argument integer increases
   },
   root: {

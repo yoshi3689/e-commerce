@@ -1,3 +1,17 @@
+#Values for sandbox
+
+##For checkout sandbox
+To test the email order confirmation feature;
+
+###Address: valid address
+
+###Email: valid email of your choice
+
+###Card Number: 4242424242424242
+
+###Expiry Date: any month and year in the future
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

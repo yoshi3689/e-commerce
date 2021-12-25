@@ -1,5 +1,4 @@
 import { configureStore, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import _ from 'lodash';
 import { commerce } from "./lib/commerce";
 
 // products slice
@@ -7,66 +6,86 @@ export const fetchProducts = createAsyncThunk('products/fetch', async() => {
   const { data } = await commerce.products.list();
   return data;
 });
+export const fetchCategories = createAsyncThunk('products/fetchCategories', async() => {
+  const { data } = await commerce.categories.list();
+  return data;
+});
 const productsSlice = createSlice({
   name: 'products',
-  initialState: {products: {}},
+  initialState: {products: null, categories: null},
   extraReducers: {
-    [fetchProducts.fulfilled]: (state, { payload }) => {state.products = _.mapKeys(payload, 'id'); },
+    [fetchProducts.fulfilled]: (state, { payload }) => {state.products = payload },
+    [fetchCategories.fulfilled]: (state, { payload }) => {state.categories = payload},
   }
-})
+});
 
-//cart slice
-export const fetchCart = createAsyncThunk('slice/', async() => {
-})
-export const addToCart = createAsyncThunk('slice/', async(id, quantity) => {
+// product slice
+export const fetchProduct = createAsyncThunk('products/fetch', async(productId) => {
+  const product = await commerce.products.retrieve(productId);
+  return product;
+});
+const productSlice = createSlice({
+  name: 'product',
+  initialState: {product: null, productId: null, fetchError: null},
+  extraReducers: {
+    [fetchProduct.fulfilled]: (state, { payload }) => {state.product = payload },
+  }
+});
+
+//cart slice and async functions in it
+export const fetchCart = createAsyncThunk('cart/fetch', async() => {
+  const cart = await commerce.cart.retrieve()
+  return cart;
+});
+export const addToCart = createAsyncThunk('cart/add', async({ id, quantity }) => {
   const { cart } = await commerce.cart.add(id, quantity);
-  return 'a';
-})
-export const removeFromCart = createAsyncThunk('slice/', async(id) => {
+  return cart;
+});
+export const removeFromCart = createAsyncThunk('cart/remove', async(id) => {
   const { cart } = await commerce.cart.remove(id);
-  return 'a';
-
-})
-export const updateCart = createAsyncThunk('slice/', async(id, quantity) => {
-  const { cart } = await commerce.cart.update(id, {quantity});
-  return 'a';
-})
-export const emptyCart = createAsyncThunk('slice/', async() => {
+  return cart;
+});
+export const updateCart = createAsyncThunk('cart/update', async({ id, quantity }) => {
+  const { cart } = await commerce.cart.update(id, { quantity });
+  return cart;
+});
+export const emptyCart = createAsyncThunk('cart/empty', async() => {
   const { cart } = await commerce.cart.empty();
-  return 'a';
-
-})
-export const refreshCart = createAsyncThunk('slice/', async () => {
+  return cart;
+});
+export const refreshCart = createAsyncThunk('cart/refresh', async () => {
   const newCart = await commerce.cart.refresh();
-  return 'a';
+  return newCart;
 })
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {cart: {}},
+  initialState: {cart: {}, isUpdated: false},
   extraReducers: {
-    [fetchCart.fulfilled]: (state, { payload }) => {state.products = payload},
-    [addToCart.fulfilled]: (state, { payload }) => {state.products = payload},
-    [removeFromCart.fulfilled]: (state, { payload }) => {state.products = payload},
-    [updateCart.fulfilled]: (state, { payload }) => {state.products = payload},
-    [emptyCart.fulfilled]: (state, { payload }) => {state.products = payload},
-    [refreshCart.fulfilled]: (state, { payload }) => {state.products = payload},
+    [fetchCart.fulfilled]: ( state, { payload }) => {state.cart = payload},
+    [addToCart.fulfilled]: ( state, { payload }) => {state.cart = payload; state.isUpdated = true; },
+    [removeFromCart.fulfilled]: ( state, { payload }) => {state.cart = payload; state.isUpdated = true;},
+    [updateCart.fulfilled]: ( state, { payload }) => {state.cart = payload; state.isUpdated = true;},
+    [emptyCart.fulfilled]: ( state, { payload }) => {state.cart = payload; state.isUpdated = true;},
+    [refreshCart.fulfilled]: ( state, { payload }) => {state.cart = payload; state.isUpdated = true;},
   }
-  
 })
 
 //token slice
-export const generateToken = createAsyncThunk('slice/', async cartId => {
-    const token = await commerce.checkout.generateToken(cartId, { type: 'cart' });
-    return 'a';
+export const createToken = createAsyncThunk('token/create', async id => {
+    const token = await commerce.checkout.generateToken(id, { type: 'cart' });
+    return token;
   });
 const tokenSlice = createSlice({
     name: 'token',
-    initialState: {token: {}},
+    initialState: {token: null, tokenError: null, },
     extraReducers: {
-      [generateToken.fulfilled]: (state, { payload }) => {state.products = payload},
+      [createToken.fulfilled]: (state, { payload }) => {state.token = payload},
+      [createToken.rejected]: (state, error) => {
+        state.tokenError = error;
+      },
+
     }
-    
   })
 
 
@@ -81,14 +100,14 @@ export const fetchSubDivisions = createAsyncThunk('shipping/fetchSubdivs', async
   return subdivisions;
 })
 
-export const fetchOptions = createAsyncThunk('shipping/fetchOptions', async(tokenId, country, subDivision) => {
-  const options = await commerce.checkout.getShippingOptions(tokenId, {country, region: subDivision});
+export const fetchOptions = createAsyncThunk('shipping/fetchOptions', async( { tokenId, country, region} ) => {
+  const options = await commerce.checkout.getShippingOptions(tokenId, {country, region});
   return options;
 })
 
 const shippingSlice = createSlice({
   name: 'shipping',
-  initialState: {countries: {}, subdivisions: {}, options: {}, shippingInfo: {}},
+  initialState: {countries: null, subdivisions: null, options: null, shippingInfo: null},
   reducers: { setShippingInfo: (state, { payload }) => { state.shippingInfo = payload }},
   extraReducers: {
     [fetchCountries.fulfilled]: (state, { payload }) => {state.countries = payload},
@@ -99,28 +118,43 @@ const shippingSlice = createSlice({
 
 export const { setShippingInfo } = shippingSlice.actions;
 
-
 //order slice
-export const createOrder = createAsyncThunk('slice/', async(tokenId, newOrder) => {
-    const incomingOrder = await commerce.checkout.capture(tokenId, newOrder);
-    return 'a';
+// TODO: add ways to cope with invalid fields(e.g zip code, county/state and etc)
+export const createOrder = createAsyncThunk('order/create', async ({ id, orderInfo }) => {
+  const incomingOrder = await commerce.checkout.capture(id, orderInfo);
+  return incomingOrder;
 });
-const orderSlice = createSlice({
-  name: 'order',
-  initialState: {order: {}},
-  extraReducers: {
-    [createOrder.fulfilled]: (state, { payload }) => {state.order = payload},
-  }
+
+export const createPayment = createAsyncThunk('order/createPayment', async({ stripe, cardElement }) => {
+  const { paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
+  return paymentMethod;
 })
 
+const orderSlice = createSlice({
+  name: 'order',
+  initialState: {order: null, payment: null, orderError: null, },
+  extraReducers: {
+    [createOrder.fulfilled]: (state, { payload }) => {state.order = payload},
+    [createOrder.rejected]: (state, error) => {
+      console.log(state.order, error); 
+      state.orderError = error;
+    },
+    [createPayment.fulfilled]: (state, { payload }) => {state.payment = payload},
+    [createPayment.rejected]: (state, error) => {
+      console.log(state.order, error); 
+      state.orderError = error
+    },
+    
+  }
+});
 
-
-const justTest = {test: 'a'};
 const reducer = {
   products: productsSlice.reducer,
+  product: productSlice.reducer,
   cart: cartSlice.reducer,
   token: tokenSlice.reducer,
   shipping: shippingSlice.reducer,
   order: orderSlice.reducer,
 };
+
 export const store = configureStore({ reducer: reducer });

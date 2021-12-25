@@ -1,9 +1,14 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles, alpha } from '@material-ui/core/styles';
 //import { BorderBottom } from '@material-ui/icons';
 
+// the below was happening because i was using fade
+// Material-UI: The `fade` color utility was renamed to `alpha` to better describe its functionality.
+// You should use `import { alpha } from '@material-ui/core/styles'`
 const drawerWidth = 0;
 
+// npx browserslist@latest --update-db
 export default makeStyles(theme => ({
+  toolbar: theme.mixins.toolbar,
   appBar:{
     boxShadow:'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -18,14 +23,16 @@ export default makeStyles(theme => ({
   },
   title: {
     flexGrow: 1, 
-    alignItems: 'center',
+    // alignItems: 'center',
     // display: 'flex',
+    textAlign: 'center',
     textDecoration: 'none',
     color: '#000',
-    display: 'inline-block'
+    display: 'inline-block',
+    marginLeft: '0.5em'
   },
-  image: {
-        marginRight: '10px',
+  logo: {
+
       },
       menuButton: {
         marginRight: theme.spacing(2),
@@ -39,9 +46,9 @@ export default makeStyles(theme => ({
       search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
         '&:hover': {
-          backgroundColor: fade(theme.palette.common.white, 0.25),
+          backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         marginRight: theme.spacing(2),
         marginLeft: 0,
@@ -103,9 +110,9 @@ export default makeStyles(theme => ({
 //   search: {
 //     position: 'relative',
 //     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: fade(theme.palette.common.white, 0.15),
+//     backgroundColor: alpha(theme.palette.common.white, 0.15),
 //     '&:hover': {
-//       backgroundColor: fade(theme.palette.common.white, 0.25),
+//       backgroundColor: alpha(theme.palette.common.white, 0.25),
 //     },
 //     marginRight: theme.spacing(2),
 //     marginLeft: 0,

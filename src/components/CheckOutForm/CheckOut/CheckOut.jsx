@@ -3,49 +3,48 @@ import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgr
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 
-import { commerce } from '../../../lib/commerce'
 import AddressForm from '../AddressForm'
 import PaymentForm from '../PaymentForm'
 import useStyles from './styles';
+import { createToken } from '../../../redux';
+// import withFetchUserLocation from '../../HOC/withFetchUserLocation';
 
 const steps = ['Shipping Address', 'Payment Details']
 
-const CheckOut = ({ cart, onCaptureCheckOut, order, error }) => {
-  // console.log(cart, onCaptureCheckOut, order, error);
-  //states
+const CheckOut = () => {
+
   const [activeStep, setActiveStep] = useState(0);
-  const [shippingInfo,setShippingInfo ] = useState({})
-  const [checkoutToken, setCheckoutToken] = useState(null);
-  // cancelling a checkout process if no credit card info is given
   const [isFinished, setIsFinished] = useState(false);
 
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { cart } = useSelector(state => state.cart);
+  const { token } = useSelector(state => state.token);
+  const { order, orderError } = useSelector(state => state.order);
 
   const next = () => setActiveStep(activeStep + 1);
   const prev = () => setActiveStep(activeStep - 1);
 
-
   useEffect(() => {
-    if(cart) {
-      const generateToken = async() => {
-        try {
-          const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
-          setCheckoutToken(token);
-        } catch(error) {
-          if(activeStep !== steps.length) {
-            history.push('/');
-          }
-        }
-      }
-      // the above will be replaced with redux
-
+    const generateToken = async() => {
+      if(cart.id && !token) dispatch(createToken(cart.id));
+    }
+    //execute the statements in the try block first. 
+    //Then if any error occurs in side it, the following catch block is executed utilizing that error thrown as the argument
+    try {
       generateToken();
     }
-  }, [cart, activeStep, history]);
+    catch (error) {
+      /* when the page is reloaded after the checkout, this token creation returns an error, so simply force the user back to the home upon error is good enough*/
+        console.error(error);
+        history.push('/');
+    }
+  }, [activeStep, dispatch, history, cart.id, token]);
 
-  let Confirmation = () => (order.customer
-    ?(
+  let Confirmation = () => (
+    order ?(
       <>
       <div>
       <Typography variant="h5">
@@ -61,7 +60,7 @@ const CheckOut = ({ cart, onCaptureCheckOut, order, error }) => {
     : isFinished ?(
       <>
       <Typography variant="h5">
-        Thank you for your purchase
+        Thank you! Wait shortly until we process your order!
       </Typography>
       </>
     ) 
@@ -71,10 +70,10 @@ const CheckOut = ({ cart, onCaptureCheckOut, order, error }) => {
       </div>
     )
   )
-  if (error) {
+  if (orderError) {
     Confirmation = () => (
       <>
-      <Typography variant="h5">Error: {error}</Typography>
+      <Typography variant="h5">Error: {orderError}</Typography>
       <br />
       <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
       </>
@@ -82,15 +81,9 @@ const CheckOut = ({ cart, onCaptureCheckOut, order, error }) => {
   }
 
   const Form = () => (activeStep === 0
-    ? <AddressForm next={next} checkoutToken={checkoutToken} setShippingInfo={setShippingInfo} test={test} />
-    : <PaymentForm next={next} prev={prev} checkoutToken={checkoutToken} shippingInfo={shippingInfo} onCaptureCheckOut={onCaptureCheckOut} timeout={timeout} />
+    ? <AddressForm next={next} checkoutToken={token} />
+    : <PaymentForm next={next} prev={prev} checkoutToken={token} timeout={timeout} />
   )
-
-  const test = (newShippingInfo) => {
-    console.log(newShippingInfo)
-    setShippingInfo(newShippingInfo)
-    next()
-  }
 
   const timeout = () => {
     setTimeout(()=>{
@@ -118,11 +111,20 @@ const CheckOut = ({ cart, onCaptureCheckOut, order, error }) => {
               </Step>
             ))}
           </Stepper>
-          {activeStep === steps.length ? <Confirmation /> : checkoutToken && <Form />}
+          {activeStep === steps.length 
+          ?<Confirmation /> 
+          : token? <Form /> :
+           (
+            <div className={classes.spinner}>
+              <CircularProgress />
+            </div>
+           ) }
+
         </Paper>
       </main> 
     </>
   )
 }
 
-export default CheckOut
+export default CheckOut;
+// export default withFetchUserLocation(CheckOut);
