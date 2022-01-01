@@ -1,11 +1,11 @@
 import React from 'react'
 import {  Select, MenuItem } from '@material-ui/core';
 
-const ShippingDropdown = ({ shippingDetailItems }) => {
+const ShippingDropdown = ({ shippingDetailItems, country, subdivision }) => {
   return (
       <Select 
         fullWidth
-        defaultValue={shippingDetailItems.list[0].id}
+        defaultValue={ shippingDetailItems.list[0].id}
         value={shippingDetailItems.value} 
         onChange={(e) => shippingDetailItems.onClick(e.target.value)}>
           {shippingDetailItems.list.map(item => (

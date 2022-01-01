@@ -1,26 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { InputLabel, Button, Grid, Typography } from '@material-ui/core';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import FormInput from './FormInput';
-import { setShippingInfo } from '../../redux';
 import withFetchShippingDetails from '../HOC/withFetchShippingDetails';
 import ShippingDropdown from './ShippingDropdown';
+
+import { setShippingInfo } from '../../redux';
+import { geocoding, createAddress } from '../../lib/geocoding';
+import { FORM_INFO } from './constants.js'
 
 const style = {display: 'flex', justifyContent: 'space-between'};
 
 const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivision, shippingOption }) => {
 
-  const formInfo = [
-["firstName", "First Name"],
-["lastName", "Last Name"],
-["address1", "Address"], 
-["email", "Email"],
-["city", "city"],
-["zip", "Zip"]
-]  
+  const [isAddressValid, setIsAddressValid] = useState(true);
+
   const methods = useForm();
   const dispatch = useDispatch();
   
@@ -33,17 +30,33 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
         
         <form 
           onSubmit={methods.handleSubmit(info => {
-            dispatch(setShippingInfo({ 
-              ...info, 
-              shippingCountry, 
-              shippingSubDivision, 
-              shippingOption 
-            }));
-            next();
+            try {
+            geocoding.get("",{
+              params: {
+                address: createAddress(...info.address1.split(" "), shippingSubDivision),
+                key: process.env.REACT_APP_GEOCODING_API_KEY
+              }
+            }).then(res => {
+              console.log(res);
+              if (res.data.status === "OK") {
+                dispatch(setShippingInfo({ 
+                  ...info, 
+                  shippingCountry, 
+                  shippingSubDivision, 
+                  shippingOption 
+                }));
+                next();  
+              } else {
+                setIsAddressValid(false);
+              }
+            })
+            } catch(err) {
+              console.log(err);
+            }
           }
         )}>
           <Grid container spacing={3}>
-            {formInfo.map(item => (
+            {FORM_INFO.map(item => (
               <FormInput required key={item[0]} name={item[0]} label={item[1]} />
             ))}
             <br />
@@ -64,12 +77,15 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
             <Button component={Link} variant="outlined" to="/cart">
               Back to cart
             </Button>
+            {/* change the button variant if the user inputs an invalid address 
+            and doesn't change until they fix it */}
             <Button type="submit" variant="contained" color="primary">
               Proceed
             </Button>
           </div>
         </form>
       </FormProvider>
+      {!isAddressValid && <div severity="error" > Address invalid. Enter again! </div>}
     </>
   )
 }

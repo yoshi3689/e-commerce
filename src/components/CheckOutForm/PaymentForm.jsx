@@ -26,6 +26,9 @@ const PaymentForm = ({ next, prev, checkoutToken, timeout }) => {
   //   console.log(document.getElementsByTagName("input"))
   //   document.getElementsByTagName("input")[0].value = "4242424242424242"
   // }
+  document.addEventListener("focus", (e) => {
+    console.log(e.target);
+  })
 
   const handleSubmit = async (e, elements, stripe) => {
     e.preventDefault();

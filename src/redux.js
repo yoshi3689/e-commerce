@@ -108,7 +108,7 @@ export const fetchOptions = createAsyncThunk('shipping/fetchOptions', async( { t
 const shippingSlice = createSlice({
   name: 'shipping',
   initialState: {countries: null, subdivisions: null, options: null, shippingInfo: null},
-  reducers: { setShippingInfo: (state, { payload }) => { state.shippingInfo = payload }},
+  reducers: { setShippingInfo: (state, { payload }) => { console.log(payload); state.shippingInfo = payload }},
   extraReducers: {
     [fetchCountries.fulfilled]: (state, { payload }) => {state.countries = payload},
     [fetchSubDivisions.fulfilled]: (state, { payload }) => {state.subdivisions = payload},

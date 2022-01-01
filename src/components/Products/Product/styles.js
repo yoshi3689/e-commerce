@@ -19,12 +19,24 @@ export default makeStyles(() => ({
   // ".MuiCardActionArea-root:hover > *" :{
   //   transform: 'scale(1.05) !important',
   // },
-  cardActions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   cardContent: {
+    maxHeight: "250px"
+  },
+  cardContentHeader: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  cardContentBody: {
+    display: "-webkit-box",
+    WebkitLineClamp: "3",
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    marginTop: "1rem"
+  },
+  cardActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingLeft: "1rem",
+    
   },
 }));

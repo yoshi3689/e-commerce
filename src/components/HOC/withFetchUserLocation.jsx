@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import geocoding, { GEOCODING_KEY } from '../../lib/geocoding';
+import { geocoding } from '../../lib/geocoding';
 
 const withFetchUserLocation = (WrappedComponent) => ({ ...props }) => {
 
-  const [userLocation, setUserLocation] = useState({});
-  // using geo-api to get the region and the country
+  const [userLocation, setUserLocation] = useState(null);
+
   const fetchLocation = (pos) => {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
     let latlng = lat + ', ' + lng;
-    console.log(latlng);
-    // let latlng = {
-    //   lat: pos.coords.latitude,
-    //   lng: pos.coords.longitude
-    // }
 
-    //seems that the request isn't coming through
-    geocoding.get('/json?', {
+    geocoding.get('', {
       params:{
           latlng: latlng,
-          key: GEOCODING_KEY
+          key: process.env.REACT_APP_GEOCODING_API_KEY
       }
     })
     .then(res =>{
-      console.log(res);
-      res.json() 
-    })
-    .then(res => {
-      setUserLocation(res);
-      console.log(res);
+      // console.log(res.data.plus_code.compound_code.split(" "))
+      // gets the subdivision and country separately
+      // but not sure this always gives me the the values I want
+      const address = res.data.results[0].address_components;
+      setUserLocation({ 
+        lat,
+        lng, 
+        subdivision : address[address.length - 3].short_name,
+        country : address[address.length - 2].short_name, 
+        address: res.data.results[0].address_components
+      })
     })
     .catch((data, status) => {
-      console.log('req failed', data, status);
+      console.log('request failed :', data, status);
     })
   }
 
@@ -53,23 +52,3 @@ const withFetchUserLocation = (WrappedComponent) => ({ ...props }) => {
 }
 
 export default withFetchUserLocation
-
-
-  
-
-  // //Ip address
-  // const getLocationByIPAd = () => {
-  //   fetch('https://extreme-ip-lookup.com/json/')
-  //   .then(res => {
-  //     console.log(Intl.DateTimeFormat().resolvedOptions().timeZoneName)
-  //     res.json()
-  //   })
-  //   // .then(res => 
-  //   //   // console.log("Country: ", res.country
-  //   //   )
-  //   .catch((data, status) => {
-  //       console.log('req failed', data, status);
-  //     })
-  // }
-  
-  // getLocationByIPAd();

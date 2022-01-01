@@ -31,30 +31,39 @@ const withFetchShippingDetails = (WrappedComponent) => ({ ...props }) => {
     
   useEffect(() => {
     // This works only on the first render
-    dispatch(fetchCountries(props.checkoutToken.id))
+    
+      dispatch(fetchCountries(props.checkoutToken.id))
     .then(({ payload }) => { 
-      setShippingCountry(getFirstKey(payload)) 
+      if (!props.country) {
+        setShippingCountry(getFirstKey(payload)) 
+      } else {
+        setShippingCountry(props.country) 
+      }
     })
     .catch(err => alert(err))
+
+      
+
     
-  }, [dispatch, props.checkoutToken.id]);
+  }, [dispatch, props.checkoutToken.id, props.country]);
 
   useEffect(() => {
     // This is supposed to work on every shippingCountry value change
     if(shippingCountry) {
       dispatch(fetchSubDivisions(shippingCountry))
         .then(({ payload }) => {
-          setShippingSubDivision(getFirstKey(payload));
+          const subdivisionToSet = props.subdivision ? props.subdivision : getFirstKey(payload);
+          setShippingSubDivision(subdivisionToSet);
           
-          return { country: shippingCountry, region: getFirstKey(payload) }
+          return { country: shippingCountry, region: subdivisionToSet }
         })
         .then(({ country, region }) => {
           dispatch(fetchOptions({ tokenId: props.checkoutToken.id, country, region }))
           .then(({payload}) => setShippingOption(payload[0].id))
         })
         .catch(err => alert(err))
-      }
-  }, [dispatch, props.checkoutToken.id, shippingCountry])
+      } 
+  }, [dispatch, props.checkoutToken.id, shippingCountry, props.subdivision, props.country])
 
   return listsToRender ? 
   <WrappedComponent 

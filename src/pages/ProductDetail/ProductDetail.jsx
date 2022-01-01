@@ -1,14 +1,18 @@
 import React from 'react'
-import { IndividualProduct } from '../../components/index';
-import useStyles from '../../components/Products/styles';
+import { IndividualProduct } from '../../components';
+import withFetchProduct from '../../components/HOC/withFetchProduct';
 
-const ProductDetail = () => {
-  const classes = useStyles();
+import CommonStructure from '../CommonStructure/CommonStructure';
+import { ELEMENTS_PRODUCT_DETAIL } from '../constants';
+
+const ProductDetail = ({ product }) => {
     return (
-      <main className={classes.content} >
-        <IndividualProduct />
-      </main>
+        <>
+            <CommonStructure btns={ELEMENTS_PRODUCT_DETAIL.btns} titleText={product.name} >
+                <IndividualProduct product={product} />
+            </CommonStructure>
+        </>
     )
 }
 
-export default ProductDetail;
+export default withFetchProduct(ProductDetail);

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardMedia, Button, Typography, CardActions } from '@material-ui/core';
-import { ClearAllOutlined } from '@material-ui/icons';
+import { Delete } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 
 import useStyles from './styles'
@@ -42,7 +42,7 @@ const CartItem = ({ item, }) => {
           <Typography> {item.quantity} </Typography>
           <Button className={classes.smallBtn} type="button" size="small" onClick={ increaseQuantity }> + </Button>
         </div>
-          <Button type="button" variant="contained" size="large" color="secondary" onClick={() => dispatch(removeFromCart(item.id))} > <ClearAllOutlined /> </Button>
+          <Button type="button" variant="contained" size="large" color="secondary" onClick={() => dispatch(removeFromCart(item.id))} > <Delete /> </Button>
       </CardActions>
     </Card></>
   )

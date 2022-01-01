@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { AppBar, Toolbar, IconButton, MenuItem, Menu, Badge, Typography } from '@material-ui/core'
-import { ShoppingCart, Sports } from '@material-ui/icons'
+import { AppBar, Toolbar, IconButton, Button ,MenuItem, Menu, Badge, Typography } from '@material-ui/core'
+import { ShoppingCart, LocalFlorist } from '@material-ui/icons'
 import useStyles from './styles';
 
 const NavBar = ({ totalItems }) => {
@@ -44,16 +44,15 @@ const NavBar = ({ totalItems }) => {
   return (
     <>
      <AppBar position="fixed" className={classes.appBar} color="inherit">
-       <Toolbar>
-         <div>
-          <IconButton component={Link} to="/" color="inherit">
-            <Sports fontSize="large" className={classes.logo}/>
-          </IconButton>
+       <Toolbar className={classes.toolBar2} >
+          <Button component={Link} to="/" color="inherit">
+            <Typography className={classes.title} variant="h5" align='center' >
+              ClothIt
+            </Typography>
+            <LocalFlorist fontSize="medium" className={classes.logo}/>
+          </Button>
           {/* <img src="/img/redsnewker.jpg" alt="commerce.js" height="25px" className={classes.image}></img> */}
-          <Typography className={classes.title} component={Link} to="/" variant="h6">
-            commerce.js
-          </Typography>
-         </div>
+          
         <div className={classes.grow}/>
         <div className={classes.button}>
         {isOnHome && (

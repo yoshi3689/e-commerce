@@ -11,8 +11,8 @@ import { createToken } from '../../../redux';
 
 const steps = ['Shipping Address', 'Payment Details']
 
-const CheckOut = () => {
-
+const CheckOut = ({ userLocation }) => {
+  console.log(userLocation)
   const [activeStep, setActiveStep] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
@@ -81,7 +81,7 @@ const CheckOut = () => {
   }
 
   const Form = () => (activeStep === 0
-    ? <AddressForm next={next} checkoutToken={token} />
+    ? <AddressForm next={next} checkoutToken={token} country={userLocation.country} subdivision={userLocation.subdivision} />
     : <PaymentForm next={next} prev={prev} checkoutToken={token} timeout={timeout} />
   )
 
@@ -92,7 +92,7 @@ const CheckOut = () => {
   }
   //error: can't perform an update on component
 
-  return (
+   return userLocation && (
     <>
       <CssBaseline />
       {/* the above is for resetting default margin and padding for this component*/}

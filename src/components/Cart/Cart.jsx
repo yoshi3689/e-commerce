@@ -25,22 +25,22 @@ const Cart = () => {
       No items in your shopping cart
     </Typography>
     <div className={classes.toolbar} />
-    <Button component={Link} to= "/" className={classes.checkoutButton} size="large" type="button" variant="contained" >Go Back Home</Button>
+    <Button component={Link} to= "/" className={classes.checkoutButton} size="large" type="button" variant="contained" >Go See Items</Button>
    </>
   );
 
   const FilledCart = () => (
     <>
-      <Grid container spacing={3}>
+      <Grid container className={classes.gridContainer} spacing={3}>
         {cart.line_items.map(item => (
-          <Grid item xs={12} md={4} key={item.id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
             <CartItem item={item} />
           </Grid>
           )
         )}
       </Grid>
       <div className={classes.cardDetails}>
-        <Typography variant="h4">
+        <Typography align="center" variant="h4">
           Subtotal: {cart.subtotal.formatted_with_symbol}
         </Typography>
         

@@ -5,7 +5,7 @@ export default makeStyles((theme) => (
 
   },
   imageList: {
-
+    
   },
   }
 ))

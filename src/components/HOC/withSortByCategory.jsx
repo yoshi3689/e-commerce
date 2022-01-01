@@ -15,4 +15,4 @@ const withSortByCategory = (WrappedComponent) => ({ ...props }) => {
   return <WrappedComponent {...props} />;
 }
 
-export default withSortByCategory
+export default withSortByCategory;

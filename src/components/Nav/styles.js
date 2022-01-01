@@ -8,7 +8,11 @@ const drawerWidth = 0;
 
 // npx browserslist@latest --update-db
 export default makeStyles(theme => ({
-  toolbar: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar, 
+  toolBar2: {
+    width: '90%',
+    margin: '0 auto'
+  },
   appBar:{
     boxShadow:'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -22,17 +26,15 @@ export default makeStyles(theme => ({
     },
   },
   title: {
-    flexGrow: 1, 
-    // alignItems: 'center',
-    // display: 'flex',
     textAlign: 'center',
     textDecoration: 'none',
+    fontWeight: "700",
     color: '#000',
     display: 'inline-block',
-    marginLeft: '0.5em'
+    marginLeft: '0.75em',
   },
   logo: {
-
+    color: "green"
       },
       menuButton: {
         marginRight: theme.spacing(2),

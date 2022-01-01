@@ -2,21 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
+  gridContainer: {
+    justifyContent: "center"
+  },
   title: {
-    marginTop: '5%',
-  },
-  emptyButton: {
-    minWidth: '150px',
-    [theme.breakpoints.down('xs')]: {
-      marginBottom: '5px',
-    },
-    // when greater than 600px, do the following
-    [theme.breakpoints.up('sm')]: {
-      marginRight: '20px'
-    },
-  },
-  checkoutButton: {
-    minWidth: '150px',
+    marginBottom: "2rem",
+    [theme.breakpoints.down('sm')]: {
+      textAlign: "center"
+      },
   },
   link: {
     textDecoration: 'none',
@@ -26,21 +19,29 @@ export default makeStyles((theme) => ({
     marginTop: '10%',
     width: '100%',
     justifyContent: 'space-between',
-    [theme.breakpoints.down('xs')]: {
+    alignItems: "center",
+    [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
-    // justifyContent: 'end'
+    gap: "1rem"
     },
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
   },
   btns: {
     //when the vw is less than 600 px, it does the following
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(2),
+      margin: theme.spacing(2),
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'start'
+      alignItems: 'center',
+      gap: "1.5rem"
+  },
+  emptyButton: {
+    minWidth: '150px',
+    // when greater than 600px, do the following
+    [theme.breakpoints.up('sm')]: {
+      marginRight: '20px'
     },
-  }
+  },
+  checkoutButton: {
+    minWidth: '150px',
+  },
 }));

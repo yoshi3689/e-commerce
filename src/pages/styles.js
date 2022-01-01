@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  toolbar: theme.mixins.toolbar,
+  // toolbar: theme.mixins.toolbar,
   gridWrapper: {
     // padding: "20px"
     width: "90%",
@@ -18,7 +18,7 @@ export default makeStyles((theme) => ({
     },
     //the size of the padding is 1.5rem this case, and increments by 0.5rem as the argument integer increases
   },
-  root: {
-    flexGrow: 1,
-  },
+  // root: {
+  //   flexGrow: 1,
+  // },
 }))
