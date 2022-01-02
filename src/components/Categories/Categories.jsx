@@ -11,12 +11,7 @@ import {
 import useStyles from "./styles";
 import { TEXT_QUANTITY } from "./constants";
 
-// using Grid for the styling
-// import { Grid } from '@material-ui/core';
-// import Category from './Category';
-
-const CategoryList = ({ categories }) => {
-  // console.log(ImageListItem.the);
+const Categories = ({ categories }) => {
   const classes = useStyles();
 
   const theme = createTheme({
@@ -85,16 +80,7 @@ const CategoryList = ({ categories }) => {
           })}
       </Box>
     </ThemeProvider>
-    // <Grid container spacing={5}>
-    //     {categories.length && categories.map(item => {
-    //       return(
-    //         <Grid item key={item.id} xs={12} md={4} lg={3}>
-    //           <Category item={item} />
-    //         </Grid>
-    //       )
-    //     })}
-    //   </Grid>
   );
 };
 
-export default CategoryList;
+export default Categories;

@@ -5,6 +5,7 @@ export const geocoding = axios.create({
 },)
 
 export const createAddress = (...args) => {
+  console.log(args);
   const condensedAddress = args.reduce((pre, cur) => (pre + "+" + cur));
   return condensedAddress;
 }

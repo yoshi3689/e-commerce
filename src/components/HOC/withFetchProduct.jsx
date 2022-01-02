@@ -24,10 +24,10 @@ const withFetchProduct = (WrappedComponent) => ({ ...props }) => {
     <>
     {(product && !product.length) && 
       <WrappedComponent { ...props } 
-      product={product} 
-      quantity={quantity}
-      increment={increment}
-      decrement={decrement} 
+        product={product} 
+        quantity={quantity}
+        increment={increment}
+        decrement={decrement} 
       />}
     </>
   )

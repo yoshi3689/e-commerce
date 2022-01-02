@@ -16,7 +16,7 @@ import { addToCart } from "../../../redux";
 const IndividualProduct = ({ product, quantity, increment, decrement }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  console.log(product)
   let itemToAdd = { id: product.id, quantity };
   const onAddToCart = () => {
     dispatch(addToCart(itemToAdd));

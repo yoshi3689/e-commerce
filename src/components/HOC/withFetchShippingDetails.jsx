@@ -39,12 +39,12 @@ const withFetchShippingDetails = (WrappedComponent) => ({ ...props }) => {
       } else {
         setShippingCountry(props.country) 
       }
-    })
-    .catch(err => alert(err))
-
-      
-
-    
+    }) 
+    .catch(err => alert(err));
+    // clean up function
+    return () => {
+      setShippingCountry(null);
+    }
   }, [dispatch, props.checkoutToken.id, props.country]);
 
   useEffect(() => {
@@ -52,7 +52,8 @@ const withFetchShippingDetails = (WrappedComponent) => ({ ...props }) => {
     if(shippingCountry) {
       dispatch(fetchSubDivisions(shippingCountry))
         .then(({ payload }) => {
-          const subdivisionToSet = props.subdivision ? props.subdivision : getFirstKey(payload);
+          const subdivisionToSet = Object.keys(payload).find(subdivision => subdivision === props.subdivision) ? props.subdivision : getFirstKey(payload);
+          // console.log(payload, Object.keys(payload).find(subdivision => subdivision === props.subdivision), subdivisionToSet);
           setShippingSubDivision(subdivisionToSet);
           
           return { country: shippingCountry, region: subdivisionToSet }
@@ -62,7 +63,8 @@ const withFetchShippingDetails = (WrappedComponent) => ({ ...props }) => {
           .then(({payload}) => setShippingOption(payload[0].id))
         })
         .catch(err => alert(err))
-      } 
+      }
+      
   }, [dispatch, props.checkoutToken.id, shippingCountry, props.subdivision, props.country])
 
   return listsToRender ? 
