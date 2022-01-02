@@ -23,7 +23,7 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
   
   return (
     <>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" gutterBottom align="center">
         Shipping Information
       </Typography>
       <FormProvider {...methods}>

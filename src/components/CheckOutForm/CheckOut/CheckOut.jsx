@@ -96,8 +96,7 @@ const CheckOut = ({ userLocation }) => {
     <>
       <CssBaseline />
       {/* the above is for resetting default margin and padding for this component*/}
-      <div className={classes.toolbar} />
-      <main className={classes.layout}>
+
         <Paper className={classes.paper}>
         {/* the above sheds a nice shadowy bg for an item coomes on top of it */}
           <Typography variant="h4" align="center"> Checkout </Typography>
@@ -119,12 +118,9 @@ const CheckOut = ({ userLocation }) => {
               <CircularProgress />
             </div>
            ) }
-
         </Paper>
-      </main> 
     </>
   )
 }
 
 export default CheckOut;
-// export default withFetchUserLocation(CheckOut);

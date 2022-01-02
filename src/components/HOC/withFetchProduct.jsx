@@ -1,7 +1,6 @@
 import { fetchProduct } from '../../redux'
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-// import { ELEMENTS_PRODUCT_DETAIL } from './constants';
 
 const withFetchProduct = (WrappedComponent) => ({ ...props }) => {
   const dispatch = useDispatch();

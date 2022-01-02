@@ -15,7 +15,7 @@ const FormInput = ({ name, label, required }) => {
         fullWidth
         required={required}
         error={isError}
-        defaultValue="" 
+        defaultValue=""
         // as={TextField}
         //instead, we have to do it like below, if we want to wrap a component with Controller
         render={({ field }) =>

@@ -43,7 +43,3 @@ export const ELEMENTS_HOME = {
     },
   ]
 }
-
-// export const getTitleText = () => {
-
-// }

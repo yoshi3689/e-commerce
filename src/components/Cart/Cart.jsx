@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
-import { Grid, Typography, Button, Container } from '@material-ui/core'
+import { Grid, Typography, Button } from '@material-ui/core'
 import useStyles from './styles'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 
 import CartItem from './CartItem/CartItem';
+import CommonStructure from '../../pages/CommonStructure/CommonStructure';
 import { fetchCart, emptyCart } from '../../redux';
+import { ELEMENTS_CART } from "./constants"
+
 
 const Cart = () => {
 
@@ -54,14 +57,14 @@ const Cart = () => {
   )
 
   return (
-    <Container >
-      <div className={classes.toolbar} />
-      <Typography className={classes.title} variant="h4">Your Cart</Typography>
-      {cart.total_items
-        ? <FilledCart />
-        : <EmptyCart />
-      } 
-    </Container>
+      <>
+        <CommonStructure titleText={ELEMENTS_CART.titleText} btns={ELEMENTS_CART.btns} >
+        {cart.total_items
+          ? <FilledCart />
+          : <EmptyCart />
+        } 
+        </CommonStructure>
+      </>
   )
 }
 

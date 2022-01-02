@@ -31,7 +31,6 @@ export default makeStyles(theme => ({
     fontWeight: "700",
     color: '#000',
     display: 'inline-block',
-    marginLeft: '0.75em',
   },
   logo: {
     color: "green"
