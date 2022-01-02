@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Button, Typography, CardActions } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
@@ -6,8 +7,8 @@ import { useDispatch } from 'react-redux';
 import useStyles from './styles'
 import { updateCart, removeFromCart } from '../../../redux'; 
 
-const CartItem = ({ item, }) => {
-  
+const CartItem = ({ item }) => {
+  console.log(item)
   const classes = useStyles();
   const dispatch = useDispatch();
   // needed to do this because item object is read-only, and createAsyncThunk doesn't let me pass the second argument
@@ -23,10 +24,9 @@ const CartItem = ({ item, }) => {
     dispatch(updateCart(itemToUpdate));
   }
 
-  return (
-    <>
+  return item.id && (
     <Card>
-      <CardMedia className={classes.media} image={item.image.url} alt={item.name} />
+      <CardMedia component={Link} to={item.product_id} className={classes.media} image={item.image.url} alt={item.name} />
       <CardContent className={classes.cardContent} >
         <Typography variant="h5">
           {item.name}
@@ -44,7 +44,7 @@ const CartItem = ({ item, }) => {
         </div>
           <Button type="button" variant="contained" size="large" color="secondary" onClick={() => dispatch(removeFromCart(item.id))} > <Delete /> </Button>
       </CardActions>
-    </Card></>
+    </Card>
   )
 }
 
