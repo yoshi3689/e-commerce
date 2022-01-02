@@ -21,6 +21,32 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
 
   const methods = useForm();
   const dispatch = useDispatch();
+
+  const onSubmit = (info) => {
+    try {
+    geocoding.get("",{
+      params: {
+        address: createAddress(...info.address1.split(" "), shippingSubDivision, shippingCountry),
+        key: process.env.REACT_APP_GEOCODING_API_KEY
+      }
+    }).then(res => {
+      console.log(res);
+      if (res.data.status === "OK" && res.data.results[0].address_components.length > 3) {
+        dispatch(setShippingInfo({ 
+          ...info, 
+          shippingCountry, 
+          shippingSubDivision, 
+          shippingOption 
+        }));
+        next();  
+      } else {
+        setIsAddressValid(false);
+      }
+    })
+    } catch(err) {
+      console.log(err);
+    }
+  }
   
   return (
     <>
@@ -35,32 +61,7 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
       <FormProvider {...methods}>
         
         <form 
-          onSubmit={methods.handleSubmit(info => {
-            try {
-            geocoding.get("",{
-              params: {
-                address: createAddress(...info.address1.split(" "), shippingSubDivision),
-                key: process.env.REACT_APP_GEOCODING_API_KEY
-              }
-            }).then(res => {
-              console.log(res);
-              if (res.data.status === "OK") {
-                dispatch(setShippingInfo({ 
-                  ...info, 
-                  shippingCountry, 
-                  shippingSubDivision, 
-                  shippingOption 
-                }));
-                next();  
-              } else {
-                setIsAddressValid(false);
-              }
-            })
-            } catch(err) {
-              console.log(err);
-            }
-          }
-        )}>
+          onSubmit={methods.handleSubmit(info => onSubmit(info))}>
           <Grid container spacing={3}>
             {FORM_INFO.map(item => (
               <FormInput required key={item[0]} name={item[0]} label={item[1]} />

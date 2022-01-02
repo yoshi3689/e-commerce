@@ -12,7 +12,7 @@ import { createToken } from '../../../redux';
 const steps = ['Shipping Address', 'Payment Details']
 
 const CheckOut = ({ userLocation }) => {
-  console.log(userLocation)
+  // console.log(userLocation)
   const [activeStep, setActiveStep] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
