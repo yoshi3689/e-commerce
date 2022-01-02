@@ -81,7 +81,11 @@ const CheckOut = ({ userLocation }) => {
   }
 
   const Form = () => (activeStep === 0
-    ? <AddressForm next={next} checkoutToken={token} country={userLocation.country} subdivision={userLocation.subdivision} />
+    ? 
+      userLocation 
+      // if the user has provided their location...
+        ? <AddressForm next={next} checkoutToken={token} country={userLocation.country} subdivision={userLocation.subdivision} />
+        : <AddressForm next={next} checkoutToken={token} />
     : <PaymentForm next={next} prev={prev} checkoutToken={token} timeout={timeout} />
   )
 
@@ -92,7 +96,7 @@ const CheckOut = ({ userLocation }) => {
   }
   //error: can't perform an update on component
 
-   return userLocation && (
+   return (
     <>
       <CssBaseline />
       {/* the above is for resetting default margin and padding for this component*/}
