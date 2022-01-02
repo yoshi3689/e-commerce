@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { InputLabel, Button, Grid, Typography } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -23,6 +24,11 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
   
   return (
     <>
+      {!isAddressValid && 
+        <Alert severity="error">
+          <AlertTitle>Error !</AlertTitle>
+          Address invalid. Please enter the correct one! 
+        </Alert>}
       <Typography variant="h5" gutterBottom align="center">
         Shipping Information
       </Typography>
@@ -85,7 +91,6 @@ const AddressForm = ({ next, shippingDetails, shippingCountry, shippingSubDivisi
           </div>
         </form>
       </FormProvider>
-      {!isAddressValid && <div severity="error" > Address invalid. Enter again! </div>}
     </>
   )
 }
