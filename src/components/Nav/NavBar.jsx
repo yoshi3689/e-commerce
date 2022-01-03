@@ -1,69 +1,143 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { AppBar, Toolbar, IconButton, Button ,MenuItem, Menu, Badge, Typography } from '@material-ui/core'
-import { ShoppingCart, LocalFlorist } from '@material-ui/icons'
+import { AppBar, Toolbar, IconButton, Button ,MenuItem, Menu, Badge, Typography, Hidden, List, ListItem } from '@material-ui/core'
+import { ShoppingCart, LocalFlorist, MenuOutlined, ShoppingBasket, Home, Category } from '@material-ui/icons'
 import useStyles from './styles';
 
 const NavBar = ({ totalItems }) => {
   const classes = useStyles();
   const location = useLocation();
-  const [isOnHome, setIsOnHome] = useState(null);
+  const [isOnCart, setIsOnCart] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const handleRouteChange = (location) => {
-    if(location.pathname.includes('cart')) {
-      setIsOnHome(false);
+    if(location.pathname === "/cart") {
+      setIsOnCart(true);
     } else {
-      setIsOnHome(true);
+      setIsOnCart(false);
     }
   }
   useEffect(() => {
     handleRouteChange(location);
+    handleMobileMenuClose();
   }, [location])
   
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleMenu= (event) => {
+    setMobileMoreAnchorEl(event.currentTarget.parentElement.parentElement.parentElement);
+  }
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  // const mobileMenuId = 'primary-search-account-menu-mobile';
 
+  const menuItemContents = {
+    home: (
+      <>
+        <Home />
+        <Typography>Home</Typography>
+      </>
+    ),
+    checkout : (
+      <>
+        <ShoppingBasket />
+          <Typography>Checkout</Typography>
+      </>
+    ),
+    categories: (
+      <>
+        <Category />
+        <Typography>Categories</Typography>
+      </>
+    ),
+    cart: (
+      <>
+        <Badge badgeContent={totalItems} color="secondary">
+        <ShoppingCart />
+        </Badge>
+        <Typography>Cart</Typography>
+      </>
+    ),
+    
+  }
+
+
+  const renderIndividualCartBtn = (
+    <Hidden xsDown>
+      <IconButton component={Link} to="/cart" aria-label="show cart item" color="inherit">
+        <Badge badgeContent={totalItems} color="secondary">
+          <ShoppingCart/>
+        </Badge>
+      </IconButton>
+    </Hidden>
+  );
+
+  const renderMenu = (
+    <Hidden xsDown>
+      <List className={classes.menuWrapper} disablePadding component="ul" >
+      {totalItems > 0 &&
+        <ListItem component={Link} to="/checkout" className={classes.menuItemWrapper} >
+            {menuItemContents.checkout}
+        </ListItem>
+      }
+      <ListItem component={Link} to="/categories" className={classes.menuItemWrapper} >
+        {menuItemContents.categories}
+      </ListItem>
+      <ListItem component={Link} to="/" className={classes.menuItemWrapper} >
+        {menuItemContents.home}
+      </ListItem>
+    </List>
+    </Hidden>
+  )
   const renderMobileMenu = (
-    <Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
-      <MenuItem>
-        <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
-          <Badge badgeContent={totalItems} color="secondary">
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
-        <p>Cart</p>
-      </MenuItem>
+    <Hidden smUp>
+      <Menu style={{ top: "50px" }} anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: "top", horizontal: "right" }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
+        {!isOnCart && (
+          <MenuItem divider className={classes.mobileMenuItem} component={Link} to="/cart" >
+            {menuItemContents.cart}
+          </MenuItem>
+        )}
+      {totalItems > 0 && (
+        <MenuItem divider className={classes.mobileMenuItem} component={Link} to="/checkout" >
+          {menuItemContents.checkout}
+        </MenuItem>
+      )}
+        <MenuItem divider className={classes.mobileMenuItem} component={Link} to="/" >
+          {menuItemContents.home}
+        </MenuItem>
+        <MenuItem divider className={classes.mobileMenuItem} component={Link} to="/categories" >
+          {menuItemContents.categories}
+        </MenuItem>
     </Menu>
+    </Hidden>
   );
 
   return (
     <>
      <AppBar position="fixed" className={classes.appBar} color="inherit">
        <Toolbar className={classes.toolBar2} >
-          <Button component={Link} to="/" color="inherit">
+          <Button className={classes.logoButton} component={Link} to="/" color="inherit">
             <Typography className={classes.title} variant="h5" align='center' >
               ClothIt
             </Typography>
             <LocalFlorist fontSize="medium" className={classes.logo}/>
           </Button>
           {/* <img src="/img/redsnewker.jpg" alt="commerce.js" height="25px" className={classes.image}></img> */}
-          
-        <div className={classes.grow}/>
-        <div className={classes.button}>
-        {isOnHome && (
-          <IconButton component={Link} to="/cart" aria-label="show cart item" color="inherit">
-          <Badge badgeContent={totalItems} color="secondary">
-            <ShoppingCart/>
-          </Badge>
-        </IconButton>
-        )}
+          <div className={classes.menuContainer} >
+            {renderMenu}
+          </div>
+          {renderMobileMenu}
+          <div className={classes.buttons}>
+            <Hidden smUp>
+            <IconButton component={"button"} onClick={handleMenu} aria-label="toggle menu" color="inherit" >
+              <Badge badgeContent={!isOnCart ? totalItems : 0} color="secondary">
+                <MenuOutlined />
+              </Badge>
+            </IconButton>
+            </Hidden>
+          {!isOnCart && renderIndividualCartBtn}
         </div>
-        {renderMobileMenu}
        </Toolbar>
      </AppBar>
      <div className={classes.toolbar} />
