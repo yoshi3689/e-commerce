@@ -1,7 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  sectionContainer: {
+    width: "90%",
+    margin: "0 auto"
+  },
   wrapper: {
+    marginTop: "2rem",
     [theme.breakpoints.down('sm')]: {
       display:"flex",
       flexDirection: "column",

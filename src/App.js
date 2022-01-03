@@ -21,7 +21,7 @@ const App = ({ userLocation }) => {
     <>
       <Router>
         <Navbar totalItems={cart.total_items} />
-        <main className={classes.container}>
+        <main >
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/cart" component={Cart} />

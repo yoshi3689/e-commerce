@@ -7,7 +7,7 @@ const CommonStructure = ({ btns, titleText, children }) => {
   const classes = useStyles();
 
   return (
-    <>
+    <section className={classes.sectionContainer}>
       <div className={classes.wrapper}>
       <Typography variant="h4">{titleText}</Typography>
         <div className={classes.btnContainer}>
@@ -26,7 +26,7 @@ const CommonStructure = ({ btns, titleText, children }) => {
         </div>
         </div>
       {children}
-    </>
+    </section>
   );
 };
 
