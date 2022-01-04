@@ -25,6 +25,9 @@ const Cart = () => {
       No items in your shopping cart
     </Typography>
     <div className={classes.toolbar} />
+    <Button component={Link} to= "/" size="large" type="button" variant="contained" color="default">
+      Go See Products
+    </Button>
    </>
   );
 

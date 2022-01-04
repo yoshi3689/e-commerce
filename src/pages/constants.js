@@ -5,7 +5,7 @@ export const ELEMENTS_CATEGORY = {
   titleText: "Category List",
 }
 export const ELEMENTS_CATEGORY_LIST = {
-  titleText: "Category List",
+  titleText: "All Categories",
 }
 
 export const ELEMENTS_HOME = {

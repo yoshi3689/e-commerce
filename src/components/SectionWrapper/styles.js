@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   sectionContainer: {
     width: "90%",
-    margin: "0 auto"
+    margin: "0 auto",
+    marginBottom: "3rem"
   },
   wrapper: {
     marginTop: "2rem",

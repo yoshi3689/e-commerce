@@ -25,6 +25,7 @@ export default makeStyles(() => ({
   cardContentHeader: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: "center"
   },
   cardContentBody: {
     display: "-webkit-box",

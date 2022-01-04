@@ -6,7 +6,7 @@ import { ELEMENTS_CART } from "../constants"
 const CartPage = () => {
   return (
     <>
-      <SectionWrapper titleText={ELEMENTS_CART.titleText}>
+      <SectionWrapper titleText={ELEMENTS_CART.titleText} >
         <Cart />
       </SectionWrapper> 
     </>

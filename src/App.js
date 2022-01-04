@@ -28,6 +28,7 @@ const App = ({ userLocation }) => {
             <Route exact path="/cart" component={CartPage} />
             <Route exact path="/checkout" component={() => <CheckoutPage userLocation={userLocation} />} />
             <Route exact path="/products" component={ProductsPage} />
+            <Route exact path='/products/:productDetail' component={ProductPage} /> 
             <Route exact path="/categories" component={CategoriesPage} />
             <Route exact path='/categories/:category' component={ProductsByCategoryPage} /> 
             <Route exact path='/:productDetail' component={ProductPage} /> 

@@ -50,6 +50,9 @@ const Product = ({ product }) => {
           <Typography variant="h5" gutterBottom>
             {product.name}
           </Typography>
+          <IconButton aria-label="Add to Cart" onClick={onAddToCart}>
+          <AddShoppingCart />
+        </IconButton>
         </div>
         <Typography
           className={classes.cardContentBody}
@@ -62,9 +65,6 @@ const Product = ({ product }) => {
         <Typography variant="h5">
           {product.price.formatted_with_symbol}
         </Typography>
-        <IconButton aria-label="Add to Cart" onClick={onAddToCart}>
-          <AddShoppingCart />
-        </IconButton>
       </CardActions>
     </Card>
   );

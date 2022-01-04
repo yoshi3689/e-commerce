@@ -32,6 +32,7 @@ const IndividualProduct = ({ product, quantity, increment, decrement }) => {
 
         <div className={classes.content}>
           <CardContent className={classes.content1}>
+            <Typography variant="h4">{product.name}</Typography>
             <Typography variant="body1" className={classes.contentItem} dangerouslySetInnerHTML={{__html: product.description}}>
             </Typography>
 
@@ -48,7 +49,7 @@ const IndividualProduct = ({ product, quantity, increment, decrement }) => {
             </div>
           </CardContent>
 
-          <CardActions>
+          <CardActions className={classes.flexContainer}>
             <IconButton aria-label="Add to Cart" onClick={onAddToCart}>
               <AddShoppingCart />
             </IconButton>

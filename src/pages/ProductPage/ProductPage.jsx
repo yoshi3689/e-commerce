@@ -8,7 +8,7 @@ import { ELEMENTS_PRODUCT_DETAIL } from '../constants';
 const ProductPage = ({...props }) => {
     return (
         <>
-            <SectionWrapper btns={ELEMENTS_PRODUCT_DETAIL.btns} titleText={props.product.name} >
+            <SectionWrapper btns={ELEMENTS_PRODUCT_DETAIL.btns} >
                 <IndividualProduct {...props} />
             </SectionWrapper>
         </>
