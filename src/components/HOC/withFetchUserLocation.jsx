@@ -17,9 +17,6 @@ const withFetchUserLocation = (WrappedComponent) => ({ ...props }) => {
       }
     })
     .then(res =>{
-      // console.log(res.data.plus_code.compound_code.split(" "))
-      // gets the subdivision and country separately
-      // but not sure this always gives me the the values I want
       const address = res.data.results[0].address_components;
       setUserLocation({ 
         lat,
@@ -33,7 +30,6 @@ const withFetchUserLocation = (WrappedComponent) => ({ ...props }) => {
       console.log('request failed :', data, status);
     })
   }
-
 
   useEffect(() => {
     const getUserLocation = () => {

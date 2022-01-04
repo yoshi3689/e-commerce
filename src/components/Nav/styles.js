@@ -4,7 +4,6 @@ import {
 } from '@material-ui/core/styles';
 const drawerWidth = 0;
 
-// npx browserslist@latest --update-db
 export default makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   toolBar2: {
@@ -18,10 +17,6 @@ export default makeStyles(theme => ({
     boxShadow: 'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
     [theme.breakpoints.up('sm')]: {
-      //brekpoints are basically media queries that can be set within each class
-      //.up || .down means min-width || max-width
-      //the letters in the () represents the size of your vw
-      // xs: 0-600, sm:600-960, md: 960-1280, lg: 1280-1960
       width: `calc(100% - ${drawerWidth})`,
       marginLeft: drawerWidth
     },
@@ -37,13 +32,10 @@ export default makeStyles(theme => ({
     display: 'inline-block',
   },
   logo: {
-    color: "green"
+    color: "#3f51b5"
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    // [theme.breakpoints.up('sm')]: {
-    //   display: 'none',
-    // },
   },
   search: {
     position: 'relative',
@@ -71,27 +63,5 @@ export default makeStyles(theme => ({
   inputRoot: {
     color: 'inherit',
   },
-  menuContainer: {
-    flexGrow: 1,
-  },
-  menuWrapper: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  menuItemWrapper: {
-    alignItems: "center",
-    color: "black",
-    gap: "0.5rem"
-  },
-  mobileMenuItem: {
-    textAlign: "left",
-    width: "200px",
-    paddingLeft: "1.5rem",
-    paddingRight: "1.5rem",
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  buttons: {
-    justifySelf: "end"
-  }
+  
 }))

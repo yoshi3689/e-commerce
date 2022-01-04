@@ -1,17 +1,17 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, Container } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
-import useStyles from "../styles";
+import useStyles from "./styles";
 
-const CommonStructure = ({ btns, titleText, children }) => {
+const SectionWrapper = ({ btns, titleText, children }) => {
   const classes = useStyles();
 
   return (
-    <section className={classes.sectionContainer}>
+    <Container component={"section"} maxWidth="lg" className={classes.sectionContainer}>
       <div className={classes.wrapper}>
       <Typography variant="h4">{titleText}</Typography>
         <div className={classes.btnContainer}>
-          {btns.map((btn) => (
+          {btns && btns.map((btn) => (
             <Button
               size="medium"
               type="button"
@@ -26,8 +26,8 @@ const CommonStructure = ({ btns, titleText, children }) => {
         </div>
         </div>
       {children}
-    </section>
+    </Container>
   );
 };
 
-export default CommonStructure;
+export default SectionWrapper;

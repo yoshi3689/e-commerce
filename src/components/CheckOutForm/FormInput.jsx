@@ -9,17 +9,11 @@ const FormInput = ({ name, label, required }) => {
     // A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
     <Grid item xs={12} sm={6} >
       <Controller 
-        name={name}
         control={control}
-        label={label}
-        fullWidth
-        required={required}
-        error={isError}
-        defaultValue=""
-        // as={TextField}
-        //instead, we have to do it like below, if we want to wrap a component with Controller
+        name={name}
+        rules={{required: true}}
         render={({ field }) =>
-        (<TextField {...field} label={label} required={required} />)}
+        (<TextField {...field} defaultValue="" fullWidth error={isError} label={label} required={required} />)}
       />
     </Grid>
   )
