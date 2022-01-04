@@ -1,12 +1,7 @@
 import React from 'react'
-import { Paper, Container, Typography, Grid, ThemeProvider, createTheme, Button, Box } from '@material-ui/core'
+import { Paper, Container, Typography, Grid, Button, Box } from '@material-ui/core'
 import useStyles from "./styles"
 
-// const darkTheme = createTheme({
-//   palette : {
-//     type: "light"
-//   }
-// })
 const Hero = ({ imgSrc }) => {
   const classes = useStyles();
   return (
@@ -14,11 +9,11 @@ const Hero = ({ imgSrc }) => {
       <img className={classes.backgroundImg} src={imgSrc} alt={imgSrc} />
       <div className={classes.containerWrapper}>
         <Container className={classes.container}  maxWidth="md" >
-          <Grid container className={classes.content} justifyContent='spaceBetween' alignItems='center' >
+          <Grid container className={classes.content} justifyContent='space-between' alignItems='center' >
             <Grid item>
               <Box className={classes.headingContainer}>
-                <Typography component="h3" variant="h3">All the brand products you know for affordable prices</Typography>
-                <Typography component="p" variant="h4">Winter sale is ongoing, all items 20% off</Typography>
+                <Typography component="h3" className={classes.headingPrimary} variant="h3">Famous brand products at affordable prices</Typography>
+                <Typography component="p" variant="h4">Winter Sale. Up to 60% off</Typography>
               </Box>
             </Grid>
             <Grid item>

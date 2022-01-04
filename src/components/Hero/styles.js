@@ -1,4 +1,4 @@
-import { makeStyles, alpha } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
   wrapper: {
@@ -11,6 +11,7 @@ export default makeStyles(theme => ({
   },
   backgroundImg: {
     position: "absolute",
+    objectFit: "cover",
     top: "0",
     left: "0",
     right: "0",
@@ -22,7 +23,7 @@ export default makeStyles(theme => ({
     position: 'relative',
     width: "100%",
     height: "100%",
-    background: "rgba(200, 200, 200 ,0.7)"
+    background: "rgba(180, 180, 180 ,0.5)"
   },
   container: {
     height: "100%",
@@ -35,6 +36,9 @@ export default makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem"
+  },
+  headingPrimary: {
+    fontWeight: "700"
   },
   btnContainer: {
     display: "flex",
