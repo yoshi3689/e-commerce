@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 // import Product from './Product/Product';
 import { Product } from '../index'
 
-const Products = ({ products }) => {
+const Products = ({ products, additionalFilter }) => {
   // I did not let this component independently fetch the one kind of product state, because this might want 
   // to fetch others depending on where it is shown
   return (

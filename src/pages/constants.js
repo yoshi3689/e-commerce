@@ -35,7 +35,7 @@ export const ELEMENTS_CATEGORY_LIST = {
 }
 
 export const ELEMENTS_HOME = {
-  titleText: "All Items",
+  titleText: "Featured Products",
   btns: [
     {
       link: "/categories",

@@ -1,10 +1,10 @@
 import React from 'react'
-// import { Link } from 'react-router-dom';
-// import { Button } from '@material-ui/core';
  
 import { Products } from '../../components'
 import Hero from '../../components/Hero/Hero';
 import withFetchProducts from "../../components/HOC/withFetchProducts"
+import withSortByCategory from '../../components/HOC/withSortByCategory';
+
 import CommonStructure from '../CommonStructure/CommonStructure';
 import { ELEMENTS_HOME } from '../constants';
 
@@ -20,4 +20,4 @@ const Home = ({ products }) => {
   )
 }
 
-export default withFetchProducts(Home);
+export default withFetchProducts(withSortByCategory(Home));
