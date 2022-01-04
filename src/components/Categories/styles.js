@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     position: "relative",
     minHeight: "200px",
     maxHeight: "400px",
-    background: "rgba(180, 180, 180 ,0.5)",
+    background: "rgba(255, 255, 255 ,0.5)",
     textDecoration: "none"
   },
   itemImg: {

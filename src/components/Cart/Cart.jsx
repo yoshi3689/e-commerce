@@ -5,10 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 
 import CartItem from './CartItem/CartItem';
-import CommonStructure from '../../pages/CommonStructure/CommonStructure';
 import { fetchCart, emptyCart } from '../../redux';
-import { ELEMENTS_CART } from "./constants"
-
 
 const Cart = () => {
 
@@ -57,12 +54,10 @@ const Cart = () => {
 
   return (
       <>
-        <CommonStructure titleText={ELEMENTS_CART.titleText} btns={ELEMENTS_CART.btns} >
         {cart.total_items
           ? <FilledCart />
           : <EmptyCart />
         } 
-        </CommonStructure>
       </>
   )
 }

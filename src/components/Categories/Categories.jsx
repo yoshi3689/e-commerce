@@ -11,54 +11,15 @@ import { TEXT_QUANTITY } from "./constants";
 const Categories = ({ categories }) => {
   const classes = useStyles();
 
-  // const theme = createTheme({
-  //   breakpoints: {
-  //     values: {
-  //       mobile: 0,
-  //       bigMobile: 350,
-  //       tablet: 650,
-  //       desktop: 900,
-  //     },
-  //   },
-  // });
-
-  // const boxToImgList = {
-  //   height: "auto",
-  //   display: "grid",
-  //   gap: "2rem",
-  //   gridTemplateRows: "repeat(50%)",
-  //   gridTemplateColumns: {
-  //     bigMobile: "repeat(1, 1fr)",
-  //     tablet: "repeat(2, 1fr)",
-  //     desktop: "repeat(3, 1fr)",
-  //   },
-  // };
-
-  // const liStyles = {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   minHeight: "max-content",
-  // };
-
-  // const imgStyles = {
-  //   width: "100%",
-  // };
   return (
 
     <Grid container className={classes.container} spacing={3}> 
       {categories && categories.map(category => {
+        console.log(category)
         return (
-          <Grid
-            item
-            container
-            justifyContent="center"
-            direction="column"
+          <Grid item container justifyContent="center" direction="column" 
             className={classes.item}
-            key={category.id}
-            component={Link}
-            xs={12}
-            sm={6}
-            md={4}
+            key={category.id} component={Link} xs={12} sm={6} md={4} 
             to={category.slug
               ? `${window.location.pathname}/${category.slug}`
               : "/whatever"
@@ -66,7 +27,7 @@ const Categories = ({ categories }) => {
           >
               <img
                 className={classes.itemImg}
-                src={category.description}
+                src={category.assets[0].url}
                 alt={category.id}
                 loading="lazy"
               />
