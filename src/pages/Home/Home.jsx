@@ -12,7 +12,7 @@ import { ELEMENTS_HOME } from '../constants';
 const Home = ({ products }) => {
   return (
     <>
-      <Hero imgSrc={"/img/heros/hero_home2.jpg"} />
+      <Hero imgSrc={"/img/heros/hero_home.jpg"} />
       <CommonStructure btns={ELEMENTS_HOME.btns} titleText={ELEMENTS_HOME.titleText} >
         {products && (<Products products={products} />) }
       </CommonStructure>
