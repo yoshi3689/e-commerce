@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { IconButton, MenuItem, Menu, Badge, Typography, Hidden } from '@material-ui/core';
+import { IconButton, MenuItem, Menu, Badge, Hidden } from '@material-ui/core';
 import { ShoppingCart, MenuOutlined } from '@material-ui/icons';
 import useStyles from "./styles"
 
@@ -21,7 +21,7 @@ const MobileMenu = ({ isOnCart, totalItems, pathname, isOnRoute, menuItems, chec
   const renderMobileHamburger = (
     <IconButton component={"button"} onClick={handleMenu} aria-label="toggle menu" color="inherit" >
       <Badge badgeContent={!isOnCart ? totalItems : 0} color="secondary">
-        <MenuOutlined />
+        <MenuOutlined color="primary" />
       </Badge>
     </IconButton>
   );
@@ -36,9 +36,8 @@ const MobileMenu = ({ isOnCart, totalItems, pathname, isOnRoute, menuItems, chec
       {(totalItems > 0 && !isOnCart) && (
         <MenuItem divider className={classes.mobileMenuItem} component={Link} to="/cart" >
           <Badge badgeContent={totalItems} color="secondary">
-            <ShoppingCart />
+            <ShoppingCart color="primary" />
           </Badge>
-          <Typography>Cart</Typography>
         </MenuItem>
       )}
       {totalItems > 0 && renderMobileMenuItem(checkoutMenuItem.content, checkoutMenuItem.to)}
