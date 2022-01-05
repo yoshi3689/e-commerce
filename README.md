@@ -1,11 +1,10 @@
 #Values for sandbox
 
 ##For checkout sandbox
-To test the email order confirmation feature;
 
-###Address: valid address
+###Address: any valid address
 
-###Email: valid email of your choice
+###Email: valid email of your choice(a recipt will be sent to this email)
 
 ###Card Number: 4242424242424242
 
