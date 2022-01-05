@@ -4,7 +4,7 @@
 
 ###Address: any valid address
 
-###Email: valid email of your choice(an order confirmation will be sent to this address)
+###Email: valid email of your choice(a recipt will be sent to this email)
 
 ###Card Number: 4242424242424242
 
