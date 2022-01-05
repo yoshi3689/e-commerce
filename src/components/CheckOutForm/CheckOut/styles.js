@@ -27,4 +27,19 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  confirmationWrapper: {
+    padding: "1.5rem",
+    maxWidth: "600px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  confirmationContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  confirmationBtn: {
+    marginLeft: "auto",
+    marginRight: "auto",
+  }
 }));

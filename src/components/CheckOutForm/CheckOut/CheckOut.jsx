@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {  Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button,  } from '@material-ui/core'
+import {  Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button, } from '@material-ui/core'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -41,16 +41,21 @@ const CheckOut = ({ userLocation }) => {
   let Confirmation = () => (
     order ?(
       <>
-      <div>
-      <Typography variant="h5">
-        Thank you, {order.customer.firstname}!
-      </Typography>
-      <Divider className={classes.divider} />
-      <Typography variant="subtitle2">Order Reference: #{order.customer_reference}</Typography>
-      <Typography variant="subtitle2">Your order summary is sent to your email!</Typography>
+        <div className={classes.toolbar} />
+      <Paper className={classes.confirmationWrapper}>
+      <div className={classes.confirmationContainer}>
+        <Typography align='center' variant="h5">
+          Thank you, {order.customer.firstname}!
+        </Typography>
+        <Divider className={classes.divider} />
+        <Typography variant="body1">Order Reference: #{order.customer_reference}</Typography>
+        <Typography variant="subtitle2">The receipt is sent to your email!</Typography>
+        <div className={classes.toolbar} />
+        <Button className={classes.confirmationBtn} component={Link} variant="outlined" type="button" color="primary" to="/">Back to home</Button>
       </div>
-      <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
-    </>
+      </Paper>
+      <div className={classes.toolbar} />
+      </>
     )
     : isFinished ?(
       <>

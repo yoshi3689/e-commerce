@@ -20,12 +20,6 @@ const styles = {
 const PaymentForm = ({ next, prev, checkoutToken, timeout }) => {
   const dispatch = useDispatch();
   const { shippingInfo } = useSelector((state) => state.shipping);
-
-
-  // const autofill = () => {
-  //   console.log(document.getElementsByTagName("input"))
-  //   document.getElementsByTagName("input")[0].value = "4242424242424242"
-  // }
   document.addEventListener("focus", (e) => {
     console.log(e.target);
   })
