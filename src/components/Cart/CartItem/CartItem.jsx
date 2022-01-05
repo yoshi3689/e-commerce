@@ -8,7 +8,7 @@ import useStyles from './styles'
 import { updateCart, removeFromCart } from '../../../redux'; 
 
 const CartItem = ({ item }) => {
-  console.log(item)
+  // console.log(item)
   const classes = useStyles();
   const dispatch = useDispatch();
   // needed to do this because item object is read-only, and createAsyncThunk doesn't let me pass the second argument

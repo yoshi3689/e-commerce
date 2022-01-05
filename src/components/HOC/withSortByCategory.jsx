@@ -2,7 +2,7 @@ import React from 'react'
 
 //when passing a prop to a HOC, you dont need to destructure the props object
 const withSortByCategory = (WrappedComponent) => ({ ...props }) => {
-  console.log(props)
+  // console.log(props)
   const filter = props.customFilter;
   const sortedProducts = props.products.length > 1 
     && props.products.filter(product =>
