@@ -34,7 +34,7 @@ const NavBar = ({ totalItems }) => {
      <AppBar position="fixed" className={classes.appBar} color="inherit">
        <Toolbar className={classes.toolBar2} >
           <Button className={classes.logoButton} component={Link} to="/" color="inherit">
-            <Typography className={classes.title} variant="h5" align='center' >
+            <Typography className={classes.title} variant="h6" align='center' >
               ClothIt
             </Typography>
             <LocalFlorist fontSize="medium" className={classes.logo}/>

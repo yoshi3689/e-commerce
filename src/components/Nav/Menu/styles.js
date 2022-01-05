@@ -4,22 +4,25 @@ export default makeStyles(theme => ({
   menuContainer: {
     flexGrow: 1,
   },
+  icon: {
+    color: "#3f51b5"
+  },
   menuWrapper: {
-    display: "flex",
-    flexDirection: "row",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      gap: "2rem"
+    }
   },
   menuItemWrapper: {
-    alignItems: "center",
     color: "black",
     gap: "0.5rem"
   },
   mobileMenuItem: {
-    textAlign: "left",
-    width: "200px",
+    textAlign: "center",
     paddingLeft: "1.5rem",
     paddingRight: "1.5rem",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "flex-end"
   },
   buttons: {
     justifySelf: "end"

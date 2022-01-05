@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import { Paper, Container, Typography, Grid, Button, Box } from '@material-ui/core'
 import useStyles from "./styles"
 
@@ -18,8 +19,7 @@ const Hero = ({ imgSrc }) => {
             </Grid>
             <Grid item>
               <Box className={classes.btnContainer} my={2}>
-                <Button size="large" type="button" variant="contained" color="primary">Shop Now</Button>
-                <Button size="large" type="button" variant="contained" color="primary">Shop featured items</Button>
+                <Button component={Link} to={"/categories/discounted"} size="large" type="button" variant="contained" color="primary">Shop Discounted Products</Button>
               </Box>
             </Grid>
           </Grid>

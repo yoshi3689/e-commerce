@@ -7,7 +7,7 @@ import { ELEMENTS_CATEGORY } from '../constants';
 const ProductsByCategoryPage = ({ ...props }) => {
   const products = props.products;
   return (
-    <SectionWrapper btns={ELEMENTS_CATEGORY.btns} titleText={props.match.params.category} >
+    <SectionWrapper btns={ELEMENTS_CATEGORY.btns} titleText={props.match.params.category + " products"} >
       {products && <SortedProducts products={products} customFilter={props.match.params.category} />}
     </SectionWrapper>
   )
