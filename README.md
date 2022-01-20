@@ -9,8 +9,7 @@
 ###Card Number: 4242424242424242
 
 ###Expiry Date: any month and year in the future
-
-Contribution guidelines for this project](clothi_error.png)
+If you are getting an error on the checkout page, [please turn off the location service for this app and try again!](https://raw.githubusercontent.com/yoshi3689/e-commerce/98f550042d73f947bb212d8e0f897257257888dd/clothi_error.png).
 
 
 # Getting Started with Create React App
