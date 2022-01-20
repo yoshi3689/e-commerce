@@ -10,6 +10,8 @@
 
 ###Expiry Date: any month and year in the future
 
+Contribution guidelines for this project](clothi_error.png)
+
 
 # Getting Started with Create React App
 
